@@ -8,16 +8,23 @@ public class MainPage
     private final WebDriver driver;
 
     // Кнопка "Заказать"
-    private final By requestButton = By.xpath(".//button[text() = 'Заказать']");
+    private final By requestButtonInHeader = By.xpath(".//div[starts-with(@class, 'Header_Nav')]/button[text() = 'Заказать']");
+    private final By requestButtonInBody = By.xpath(".//div[starts-with(@class, 'Home_FinishButton')]/button[text() = 'Заказать']");
 
     public MainPage(WebDriver driver)
     {
         this.driver = driver;
     }
 
-    public void clickOnRequestButton()
+    public void clickOnRequestButtonInHeader()
     {
-        WebElement element = driver.findElement(requestButton);
+        WebElement element = driver.findElement(requestButtonInHeader);
+        element.click();
+    }
+
+    public void clickOnRequestButtonInBody()
+    {
+        WebElement element = driver.findElement(requestButtonInBody);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
     }

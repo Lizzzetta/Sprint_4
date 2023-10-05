@@ -47,7 +47,9 @@ public class FirstFormPage
     public void setStationOfMetro(String value)
     {
         driver.findElement(inputForStationOfMetro).click();
-        driver.findElement(By.xpath(".//li[@role = 'menuitem']/button/div[text() = '" + value + "']")).click();
+        WebElement element = driver.findElement(By.xpath(".//li[@role = 'menuitem']/button/div[text() = '" + value + "']"));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+        element.click();
     }
 
     public void setPhone(String value)

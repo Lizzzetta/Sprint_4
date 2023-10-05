@@ -9,11 +9,10 @@ import org.openqa.selenium.chrome.*;
 import ru.katkova.sprint4.pageobject.MainPage;
 
 @RunWith(Parameterized.class)
-public class AccordionTest
+public class AccordionTest extends TestBase
 {
     private final String accordionItemTitle;
     private final String accordionItemContent;
-    private WebDriver driver;
 
     public AccordionTest(String accordionItemTitle, String accordionItemContent)
     {
@@ -36,26 +35,12 @@ public class AccordionTest
         };
     }
 
-    @Before
-    public void init()
-    {
-        WebDriverManager.chromedriver().setup();
-    }
-
     @Test
     public void checkAccordionItem()
     {
-        ChromeOptions options = new ChromeOptions(); // Драйвер для браузера Chrome
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        initDriver();
+
         MainPage mainPage = new MainPage(driver);
         mainPage.checkAccordionItem(accordionItemTitle, accordionItemContent);
-    }
-
-    @After
-    public void close()
-    {
-        driver.quit();
     }
 }
