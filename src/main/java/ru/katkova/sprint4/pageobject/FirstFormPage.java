@@ -1,6 +1,8 @@
 package ru.katkova.sprint4.pageobject;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FirstFormPage
 {
@@ -20,6 +22,9 @@ public class FirstFormPage
 
     // Поле ввода телефона
     private final By inputForPhone = By.xpath(".//input[@placeholder = '* Телефон: на него позвонит курьер']");
+
+    // Заголовок формы
+    private final By title = By.xpath(".//div[text() = 'Для кого самокат']");
 
     // Кнопка "далее"
     private final By nextButton = By.xpath(".//button[text() = 'Далее']");
@@ -62,5 +67,11 @@ public class FirstFormPage
         WebElement element = driver.findElement(nextButton);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
+    }
+
+    public void checkFormTitle()
+    {
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(title));
     }
 }

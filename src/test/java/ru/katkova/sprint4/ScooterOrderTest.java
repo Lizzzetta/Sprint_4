@@ -15,9 +15,8 @@ public class ScooterOrderTest extends TestBase
     private final String phone;
     private final String date;
     private final String duration;
-    private final boolean byRequestButtonInHeader;
 
-    public ScooterOrderTest(String name, String surname, String address, String metroStation, String phone, String date, String duration, boolean byRequestButtonInHeader)
+    public ScooterOrderTest(String name, String surname, String address, String metroStation, String phone, String date, String duration)
     {
         this.name = name;
         this.surname = surname;
@@ -26,15 +25,14 @@ public class ScooterOrderTest extends TestBase
         this.phone = phone;
         this.date = date;
         this.duration = duration;
-        this.byRequestButtonInHeader = byRequestButtonInHeader;
     }
 
     @Parameterized.Parameters
     public static Object[][] getTestData()
     {
         return new Object[][] {
-                {"Вася", "Телегин", "Москва", "Черкизовская", "12345678900", "11.11.2023", "сутки", true},
-                {"Ася", "Лютикова", "Раменское", "Лубянка", "32165498777", "03.09.2023", "трое суток", false}
+                {"Вася", "Телегин", "Москва", "Черкизовская", "12345678900", "11.11.2023", "сутки"},
+                {"Ася", "Лютикова", "Раменское", "Лубянка", "32165498777", "03.09.2023", "трое суток"}
         };
     }
 
@@ -49,14 +47,7 @@ public class ScooterOrderTest extends TestBase
         ConfirmPopUp confirmPopUp = new ConfirmPopUp(driver);
         ResultPopUp resultPopUp = new ResultPopUp(driver);
 
-        if (byRequestButtonInHeader)
-        {
-            mainPage.clickOnRequestButtonInHeader();
-        }
-        else
-        {
-            mainPage.clickOnRequestButtonInBody();
-        }
+        mainPage.clickOnRequestButtonInHeader();
         firstFormPage.setName(name);
         firstFormPage.setSurname(surname);
         firstFormPage.setAddress(address);
@@ -69,5 +60,17 @@ public class ScooterOrderTest extends TestBase
         confirmPopUp.clickOnYesButton();
 
         resultPopUp.checkForResultPopUp();
+    }
+
+    @Test
+    public void requestScooterByButtonInBody()
+    {
+        initDriver();
+
+        MainPage mainPage = new MainPage(driver);
+        FirstFormPage firstFormPage = new FirstFormPage(driver);
+
+        mainPage.clickOnRequestButtonInBody();
+        firstFormPage.checkFormTitle();
     }
 }
